@@ -18,7 +18,10 @@
         </activity>
         <activity android:name=".CadastroParticipantes" />
         <activity android:name=".CadastroReserva" />
-        <activity android:name=".CadastroLivro"></activity>
+        <activity android:name=".CadastroLivro" />
+        <activity android:name=".DadosParticipantes" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".DadosLivros"></activity>
     </application>
 
 </manifest>
