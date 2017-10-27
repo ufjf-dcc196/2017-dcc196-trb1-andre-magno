@@ -1,4 +1,4 @@
-package com.example.desenvolvedor.myapplication;
+package com.example.desenvolvedor.myapplication.br.com.View;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.desenvolvedor.myapplication.R;
+import com.example.desenvolvedor.myapplication.br.com.Model.Livro;
+import com.example.desenvolvedor.myapplication.br.com.Persistencia.LivrosDados;
 
 public class CadastroLivro extends AppCompatActivity {
 
@@ -49,9 +53,9 @@ public class CadastroLivro extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                Toast.makeText(getApplicationContext(), "toque curto", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(CadastroLivro.this, ExibirInforLivro.class);
+                intent1.putExtra("posicao",position);
+                startActivity(intent1);
             }
         });
 
@@ -72,7 +76,7 @@ public class CadastroLivro extends AppCompatActivity {
         btnInseir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LivrosDados.getInstance().getdadosLivros().add(new Livro(LivrosDados.getInstance().getdadosLivros().size(),txtTitulo.getText().toString(),txtEditora.getText().toString(),Integer.parseInt(txtAno.getText().toString())));
+                LivrosDados.getInstance().getdadosLivros().add(new Livro(LivrosDados.getInstance().getdadosLivros().size(),txtTitulo.getText().toString(),txtEditora.getText().toString(),txtAno.getText().toString()));
                 listView.setAdapter(updateListView());
             }
 

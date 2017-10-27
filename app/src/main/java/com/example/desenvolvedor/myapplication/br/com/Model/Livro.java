@@ -1,4 +1,4 @@
-package com.example.desenvolvedor.myapplication;
+package com.example.desenvolvedor.myapplication.br.com.Model;
 
 import android.content.Intent;
 
@@ -6,14 +6,14 @@ import android.content.Intent;
  * Created by Desenvolvedor on 22/10/2017.
  */
 
-class Livro {
+public class Livro {
     private int id;
     private String titulo;
     private String editora;
-    private int ano;
+    private String ano;
 
 
-    public Livro(int id, String titulo, String editora, int ano) {
+    public Livro(int id, String titulo, String editora, String ano) {
         this.id = id;
         this.titulo = titulo;
         this.editora = editora;
@@ -44,11 +44,11 @@ class Livro {
         this.editora = editora;
     }
 
-    public int getAno() {
+    public String getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
+    public void setAno(String ano) {
         this.ano = ano;
     }
 

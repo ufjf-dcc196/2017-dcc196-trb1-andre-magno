@@ -1,4 +1,6 @@
-package com.example.desenvolvedor.myapplication;
+package com.example.desenvolvedor.myapplication.br.com.Persistencia;
+
+import com.example.desenvolvedor.myapplication.br.com.Model.Participante;
 
 import java.util.ArrayList;
 

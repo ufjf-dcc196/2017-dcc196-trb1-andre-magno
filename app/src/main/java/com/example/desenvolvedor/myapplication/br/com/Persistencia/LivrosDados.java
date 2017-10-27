@@ -1,4 +1,6 @@
-package com.example.desenvolvedor.myapplication;
+package com.example.desenvolvedor.myapplication.br.com.Persistencia;
+
+import com.example.desenvolvedor.myapplication.br.com.Model.Livro;
 
 import java.util.ArrayList;
 
@@ -20,8 +22,8 @@ public class LivrosDados {
 
             if (instance == null) {
                 instance = new LivrosDados();
-                dadosLivros.add(new Livro(dadosLivros.size(),"O Mar", "Peason",2017));
-                dadosLivros.add(new Livro(dadosLivros.size(),"A Mare", "Peason",2012 ));
+                dadosLivros.add(new Livro(dadosLivros.size(),"O Mar", "Peason","2017"));
+                dadosLivros.add(new Livro(dadosLivros.size(),"A Mare", "Peason","2012" ));
             }
             return instance;
         }

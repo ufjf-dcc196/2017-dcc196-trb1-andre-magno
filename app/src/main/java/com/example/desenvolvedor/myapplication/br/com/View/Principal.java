@@ -1,4 +1,4 @@
-package com.example.desenvolvedor.myapplication;
+package com.example.desenvolvedor.myapplication.br.com.View;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,15 +11,15 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.*;
 
+import com.example.desenvolvedor.myapplication.R;
+import com.example.desenvolvedor.myapplication.br.com.Model.Participante;
+import com.example.desenvolvedor.myapplication.br.com.Persistencia.ParticipantesDados;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Principal extends AppCompatActivity {
-
-
-
-
 
     private Button CadastroParticipante;
     private Button CadastroLivro;
@@ -71,13 +71,9 @@ public class Principal extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent1 = new Intent(Principal.this, DadosParticipantes.class);
-
+                Intent intent1 = new Intent(Principal.this, ExbirInforParticipante.class);
                 intent1.putExtra("posicao",position);
                 startActivity(intent1);
-
-
-
             }
         });
 
@@ -136,7 +132,7 @@ public class Principal extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent enviarDadosParaAuxiliar1 = new Intent(
-                        Principal.this, CadastroReserva.class
+                        Principal.this, CadastroReservas.class
 
                 );
                 startActivity(enviarDadosParaAuxiliar1);
@@ -148,7 +144,7 @@ public class Principal extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent enviarDadosParaAuxiliar1 = new Intent(
-                        Principal.this, CadastroLivro.class
+                        Principal.this, com.example.desenvolvedor.myapplication.br.com.View.CadastroLivro.class
 
                 );
                 startActivity(enviarDadosParaAuxiliar1);

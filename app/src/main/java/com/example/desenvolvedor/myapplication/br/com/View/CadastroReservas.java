@@ -1,4 +1,4 @@
-package com.example.desenvolvedor.myapplication;
+package com.example.desenvolvedor.myapplication.br.com.View;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,11 +7,17 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.desenvolvedor.myapplication.R;
+import com.example.desenvolvedor.myapplication.br.com.Model.Livro;
+import com.example.desenvolvedor.myapplication.br.com.Model.Participante;
+import com.example.desenvolvedor.myapplication.br.com.Model.Reserva;
+import com.example.desenvolvedor.myapplication.br.com.Persistencia.LivrosDados;
+import com.example.desenvolvedor.myapplication.br.com.Persistencia.ParticipantesDados;
+import com.example.desenvolvedor.myapplication.br.com.Persistencia.ReservaDados;
 
-public class CadastroReserva extends AppCompatActivity {
+public class CadastroReservas extends AppCompatActivity {
 
 
     private Button btnSalvar;
@@ -19,14 +25,19 @@ public class CadastroReserva extends AppCompatActivity {
     private Spinner spiParticipantes;
     private Spinner spiLivros;
 
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro_reserva);
+        setContentView(R.layout.activity_cadastro_reservas);
 
 
-        spiParticipantes = (Spinner) findViewById(R.id.spiP);
-        spiLivros = (Spinner) findViewById(R.id.spiL);
+        spiParticipantes = (Spinner) findViewById(R.id.spPessoa);
+        spiLivros = (Spinner) findViewById(R.id.spLivro);
         btnSalvar = (Button) findViewById(R.id.btnS);
         btnVoltar = (Button) findViewById(R.id.btnV);
 
@@ -65,7 +76,7 @@ public class CadastroReserva extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent enviarDadosParaAuxiliar1 = new Intent(
-                        CadastroReserva.this, Principal.class
+                        CadastroReservas.this, Principal.class
 
                 );
                 startActivity(enviarDadosParaAuxiliar1);

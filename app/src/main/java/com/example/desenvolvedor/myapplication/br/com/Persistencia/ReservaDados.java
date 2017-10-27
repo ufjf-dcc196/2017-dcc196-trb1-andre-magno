@@ -1,4 +1,8 @@
-package com.example.desenvolvedor.myapplication;
+package com.example.desenvolvedor.myapplication.br.com.Persistencia;
+
+import com.example.desenvolvedor.myapplication.br.com.Model.Livro;
+import com.example.desenvolvedor.myapplication.br.com.Model.Participante;
+import com.example.desenvolvedor.myapplication.br.com.Model.Reserva;
 
 import java.util.ArrayList;
 
@@ -20,7 +24,7 @@ public class ReservaDados {
 
             if (instance == null) {
                 instance = new ReservaDados();
-                dadosReserva.add(new Reserva(new Participante(1,"Pedro","asdf@gmail.com"),new Livro(LivrosDados.getInstance().getdadosLivros().size(),"O Mar", "Peason",2017)));
+                dadosReserva.add(new Reserva(new Participante(1,"Pedro","asdf@gmail.com"),new Livro(LivrosDados.getInstance().getdadosLivros().size(),"O Mar", "Peason","2017")));
 
             }
             return instance;

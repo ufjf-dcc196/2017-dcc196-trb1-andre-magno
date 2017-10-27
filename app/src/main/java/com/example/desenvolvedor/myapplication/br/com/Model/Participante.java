@@ -1,4 +1,4 @@
-package com.example.desenvolvedor.myapplication;
+package com.example.desenvolvedor.myapplication.br.com.Model;
 
 import java.util.ArrayList;
 

@@ -9,19 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Principal">
+        <activity android:name=".br.com.View.Principal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CadastroParticipantes" />
-        <activity android:name=".CadastroReserva" />
-        <activity android:name=".CadastroLivro" />
-        <activity android:name=".DadosParticipantes" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".DadosLivros"></activity>
+        <activity android:name=".br.com.View.CadastroParticipantes" />
+        <activity android:name=".br.com.View.CadastroLivro" />
+        <activity android:name=".br.com.View.ExbirInforParticipante" />
+        <activity android:name=".br.com.View.CadastroReservas" />
+        <activity android:name=".br.com.View.ExibirInforLivro"></activity>
     </application>
 
 </manifest>

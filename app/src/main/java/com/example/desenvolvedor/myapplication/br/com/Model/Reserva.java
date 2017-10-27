@@ -1,6 +1,4 @@
-package com.example.desenvolvedor.myapplication;
-
-import java.util.ArrayList;
+package com.example.desenvolvedor.myapplication.br.com.Model;
 
 /**
  * Created by Desenvolvedor on 22/10/2017.
