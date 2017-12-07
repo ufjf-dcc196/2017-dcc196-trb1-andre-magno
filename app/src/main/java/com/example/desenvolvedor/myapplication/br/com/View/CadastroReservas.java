@@ -1,8 +1,8 @@
 package com.example.desenvolvedor.myapplication.br.com.View;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -10,12 +10,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.desenvolvedor.myapplication.R;
+import com.example.desenvolvedor.myapplication.br.com.DAO.LivroDAO;
+import com.example.desenvolvedor.myapplication.br.com.DAO.ParticipanteDAO;
+import com.example.desenvolvedor.myapplication.br.com.DAO.ReservaDAO;
 import com.example.desenvolvedor.myapplication.br.com.Model.Livro;
 import com.example.desenvolvedor.myapplication.br.com.Model.Participante;
 import com.example.desenvolvedor.myapplication.br.com.Model.Reserva;
-import com.example.desenvolvedor.myapplication.br.com.Persistencia.LivrosDados;
-import com.example.desenvolvedor.myapplication.br.com.Persistencia.ParticipantesDados;
-import com.example.desenvolvedor.myapplication.br.com.Persistencia.ReservaDados;
+
+import static com.example.desenvolvedor.myapplication.br.com.View.Principal.db;
 
 public class CadastroReservas extends AppCompatActivity {
 
@@ -24,7 +26,6 @@ public class CadastroReservas extends AppCompatActivity {
     private Button btnVoltar;
     private Spinner spiParticipantes;
     private Spinner spiLivros;
-
 
 
 
@@ -42,27 +43,31 @@ public class CadastroReservas extends AppCompatActivity {
         btnVoltar = (Button) findViewById(R.id.btnV);
 
 
-        ArrayAdapter<Livro> livro = new ArrayAdapter<Livro>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, LivrosDados.getInstance().getdadosLivros());
-        livro.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spiLivros.setAdapter(livro);
+        ArrayAdapter<Livro> arrayAdapter = new ArrayAdapter<Livro>(this, android.R.layout.simple_list_item_1, new LivroDAO(db).getLivros());
+        arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spiLivros.setAdapter(arrayAdapter);
 
-        ArrayAdapter<Participante> participanteAdapter = new ArrayAdapter<Participante>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, ParticipantesDados.getInstance().getDadosPaticipantes());
-        participanteAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spiParticipantes.setAdapter(participanteAdapter);
+
+
+
+    ArrayAdapter<Participante> arrayAdapter2;
+    arrayAdapter2 = new ArrayAdapter<Participante>(this, android.R.layout.simple_list_item_1, new ParticipanteDAO(db).getParticipantes());
+        arrayAdapter2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spiParticipantes.setAdapter(arrayAdapter2);
 
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(spiLivros.getSelectedItemPosition()==0){
+                if(spiLivros.getSelectedItemPosition()==-1){
                     Toast.makeText(getApplicationContext(), "Selecione um Livro", Toast.LENGTH_SHORT).show();
-                }else if(spiParticipantes.getSelectedItemPosition()==0){
+                }else if(spiParticipantes.getSelectedItemPosition()==-1){
                     Toast.makeText(getApplicationContext(), "Selecione um Participante", Toast.LENGTH_SHORT).show();
                 } else {
                     Participante participante = (Participante) spiParticipantes.getSelectedItem();
                     Livro livro = (Livro) spiLivros.getSelectedItem();
-                    ReservaDados.getInstance().add(new Reserva(participante,livro));
+                    new ReservaDAO(db).inserirReserva(new Reserva(participante,livro));
 
                     spiParticipantes.setSelection(0);
                     spiLivros.setSelection(0);

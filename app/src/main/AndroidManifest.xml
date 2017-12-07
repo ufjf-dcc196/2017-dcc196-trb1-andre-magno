@@ -20,7 +20,7 @@
         <activity android:name=".br.com.View.CadastroLivro" />
         <activity android:name=".br.com.View.ExbirInforParticipante" />
         <activity android:name=".br.com.View.CadastroReservas" />
-        <activity android:name=".br.com.View.ExibirInforLivro"></activity>
+        <activity android:name=".br.com.View.ExibirInforLivro" />
     </application>
 
 </manifest>

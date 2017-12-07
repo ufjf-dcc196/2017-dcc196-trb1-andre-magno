@@ -1,4 +1,4 @@
-package com.example.desenvolvedor.myapplication.br.com.Persistencia;
+package com.example.desenvolvedor.myapplication.br.com.DAO;
 
 import com.example.desenvolvedor.myapplication.br.com.Model.Livro;
 
@@ -27,8 +27,7 @@ public class LivrosDados {
             }
             return instance;
         }
-
-
+    
         public void add(Livro p){
             dadosLivros.add(p);
         }

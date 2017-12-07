@@ -1,19 +1,21 @@
 package com.example.desenvolvedor.myapplication.br.com.View;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
-import android.widget.*;
 
 import com.example.desenvolvedor.myapplication.R;
+import com.example.desenvolvedor.myapplication.br.com.DAO.Banco;
+import com.example.desenvolvedor.myapplication.br.com.DAO.ParticipanteDAO;
+import com.example.desenvolvedor.myapplication.br.com.DAO.ParticipantesDados;
 import com.example.desenvolvedor.myapplication.br.com.Model.Participante;
-import com.example.desenvolvedor.myapplication.br.com.Persistencia.ParticipantesDados;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,54 +23,53 @@ import java.util.Date;
 
 public class Principal extends AppCompatActivity {
 
+    static final String NOME_BD = "banco";
+
+
     private Button CadastroParticipante;
     private Button CadastroLivro;
     private Button CadastroReserva;
-    private ListView listView;
+    private Button Update;
+
 
     private EditText txtEntrada;
     private EditText txtSaida;
+
+    static SQLiteDatabase db ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        listView = (ListView) findViewById(R.id.listaView);
 
+        final ListView listView1 = (ListView) findViewById(R.id.listView12);
 
 
         CadastroParticipante = (Button) findViewById(R.id.btnCadastroParticipante);
         CadastroReserva = (Button) findViewById(R.id.blnCadastroReserva);
-        CadastroLivro = (Button) findViewById(R.id.bltCadastroLivro);
         txtEntrada = (EditText) findViewById(R.id.txtEntrada);
         txtSaida = (EditText) findViewById(R.id.txtSaida);
+        CadastroLivro = (Button) findViewById(R.id.bltCadastroLivro);
+        Update = (Button) findViewById(R.id.Update);
 
 
-
-
-
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null) {
-            boolean isNew = extras.getBoolean("isNewItem", false);
-            if (isNew) {
-                Toast.makeText(getApplicationContext(), "Dados incorretos", Toast.LENGTH_SHORT).show();
-            } else {
-
-                ParticipantesDados.getInstance().add(new Participante(ParticipantesDados.getInstance().getDadosPaticipantes().size(), extras.getString("Nome"), extras.getString("Email")));
+        if(db==null) {
+            db = openOrCreateDatabase(NOME_BD, MODE_APPEND, null);
+            Banco.criarTabelas(db);
+        }
+        Update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listView1.setAdapter(updateListView());
 
             }
-        }
+        });
 
 
 
-        ArrayAdapter<Participante> arrayAdapter = new ArrayAdapter<Participante>(this, android.R.layout.simple_list_item_1, ParticipantesDados.getInstance().getDadosPaticipantes());
 
-        listView.setAdapter(arrayAdapter);
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent1 = new Intent(Principal.this, ExbirInforParticipante.class);
@@ -81,7 +82,7 @@ public class Principal extends AppCompatActivity {
 
 
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
             if(txtEntrada.getText().toString().equals("")) {
@@ -118,11 +119,9 @@ public class Principal extends AppCompatActivity {
         CadastroParticipante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent enviarDadosParaAuxiliar1 = new Intent(
-                        Principal.this,CadastroParticipantes.class
-
-                );
-                startActivity(enviarDadosParaAuxiliar1);
+                listView1.setAdapter(updateListView());
+                Intent intent = new Intent(Principal.this, CadastroParticipantes.class);
+                startActivity(intent);
 
             }
         });
@@ -159,7 +158,12 @@ public class Principal extends AppCompatActivity {
 
 
 
+    public ArrayAdapter updateListView(){
 
+        ArrayAdapter<Participante> arrayAdapter2;
+        arrayAdapter2 = new ArrayAdapter<Participante>(this, android.R.layout.simple_list_item_1, new ParticipanteDAO(db).getParticipantes());
+        return arrayAdapter2;
+    }
 
 
 

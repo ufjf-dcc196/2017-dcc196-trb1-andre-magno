@@ -1,16 +1,18 @@
 package com.example.desenvolvedor.myapplication.br.com.View;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.desenvolvedor.myapplication.R;
+import com.example.desenvolvedor.myapplication.br.com.DAO.ParticipanteDAO;
 import com.example.desenvolvedor.myapplication.br.com.Model.Participante;
-import com.example.desenvolvedor.myapplication.br.com.Persistencia.ParticipantesDados;
+
+import java.util.ArrayList;
+
+import static com.example.desenvolvedor.myapplication.br.com.View.Principal.db;
 
 public class ExbirInforParticipante extends AppCompatActivity {
 
@@ -37,7 +39,8 @@ public class ExbirInforParticipante extends AppCompatActivity {
         txtNome = (TextView) findViewById(R.id.txtNome);
         txtEmail = (TextView) findViewById(R.id.txtEmail);
 
-
+        txtNome.setEnabled(false);
+        txtEmail.setEnabled(false);
 
         if (extras != null) {
             boolean isNew = extras.getBoolean("isNewItem", false);
@@ -45,16 +48,24 @@ public class ExbirInforParticipante extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "asdasdasdad", Toast.LENGTH_SHORT).show();
             } else {
 
-                Participante p = ParticipantesDados.getInstance().get(extras.getInt("posicao"));
-                txtNome.setText(p.getNome());
-                txtEmail.setText(p.getEmail());
+                ArrayList<Participante> participantes = (ArrayList<Participante>) new ParticipanteDAO(db).getParticipantes();
+                for(int i=0; i<participantes.size();i++){
+                    if(participantes.get(i).getId()==extras.getInt("posicao"));
+                    {
+                        txtNome.setText(participantes.get(i).getNome());
+                        txtEmail.setText(participantes.get(i).getEmail());
 
+                    }
+
+                }
+
+/*
                 ArrayAdapter<String> arrayAdapterEntrada = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, p.getEntrada());
 
                 listaEntrada.setAdapter(arrayAdapterEntrada);
                 ArrayAdapter<String> arrayAdapterSaida = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, p.getSaida());
 
-                listaSaida.setAdapter(arrayAdapterSaida);
+                listaSaida.setAdapter(arrayAdapterSaida);*/
 
             }
         }

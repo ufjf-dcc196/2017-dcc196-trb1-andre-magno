@@ -1,8 +1,9 @@
 package com.example.desenvolvedor.myapplication.br.com.View;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,8 +13,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.desenvolvedor.myapplication.R;
+import com.example.desenvolvedor.myapplication.br.com.DAO.LivroDAO;
 import com.example.desenvolvedor.myapplication.br.com.Model.Livro;
-import com.example.desenvolvedor.myapplication.br.com.Persistencia.LivrosDados;
+
+import static com.example.desenvolvedor.myapplication.br.com.View.Principal.NOME_BD;
 
 public class CadastroLivro extends AppCompatActivity {
 
@@ -23,7 +26,7 @@ public class CadastroLivro extends AppCompatActivity {
     private EditText txtTitulo;
     private EditText txtEditora;
     private EditText txtAno;
-
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +34,9 @@ public class CadastroLivro extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_livro);
 
 
-
+        db = openOrCreateDatabase(NOME_BD, MODE_PRIVATE, null);
 
         final ListView listView = (ListView) findViewById(R.id.ListaLivros);
-
-
         btnInseir= (Button) findViewById(R.id.btnInserir_l);
         btnVoltar= (Button) findViewById(R.id.btnVoltar_l);
         txtEditora= (EditText) findViewById(R.id.txtEditora);
@@ -76,8 +77,15 @@ public class CadastroLivro extends AppCompatActivity {
         btnInseir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LivrosDados.getInstance().getdadosLivros().add(new Livro(LivrosDados.getInstance().getdadosLivros().size(),txtTitulo.getText().toString(),txtEditora.getText().toString(),txtAno.getText().toString()));
+
+                LivroDAO livroDAO=new LivroDAO(db);
+                livroDAO.inserirLivro(new Livro(0,txtTitulo.getText().toString(),txtEditora.getText().toString(),txtAno.getText().toString()));
+
+
+
+                //LivrosDados.getInstance().getdadosLivros().add(new Livro(LivrosDados.getInstance().getdadosLivros().size(),txtTitulo.getText().toString(),txtEditora.getText().toString(),txtAno.getText().toString()));
                 listView.setAdapter(updateListView());
+
             }
 
         });
@@ -98,10 +106,8 @@ public class CadastroLivro extends AppCompatActivity {
     }
 
     public ArrayAdapter updateListView(){
-        ArrayAdapter<Livro> arrayAdapter = new ArrayAdapter<Livro>(this, android.R.layout.simple_list_item_1, LivrosDados.getInstance().getdadosLivros());
+
+        ArrayAdapter<Livro> arrayAdapter = new ArrayAdapter<Livro>(this, android.R.layout.simple_list_item_1, new LivroDAO(db).getLivros());
         return arrayAdapter;
-
-
-
     }
 }

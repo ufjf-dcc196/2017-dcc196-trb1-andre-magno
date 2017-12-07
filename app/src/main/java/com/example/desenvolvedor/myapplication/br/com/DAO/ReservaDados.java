@@ -1,4 +1,4 @@
-package com.example.desenvolvedor.myapplication.br.com.Persistencia;
+package com.example.desenvolvedor.myapplication.br.com.DAO;
 
 import com.example.desenvolvedor.myapplication.br.com.Model.Livro;
 import com.example.desenvolvedor.myapplication.br.com.Model.Participante;
